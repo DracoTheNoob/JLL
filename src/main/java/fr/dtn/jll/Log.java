@@ -8,6 +8,11 @@ import java.time.LocalDateTime;
  */
 public class Log {
     /**
+     * If a directory has been chosen or not
+     */
+    private static boolean init = false;
+
+    /**
      * The directory which the logs will be written in
      */
     private static File directory;
@@ -26,9 +31,11 @@ public class Log {
      */
     public static void setDirectory(File directory){
         Log.directory = directory;
+        init = true;
+        Log.print("Directory changed to : '" + directory.getPath() + "'");
     }
 
-    public static void setDirectory(String path){ setDirectory(new File(path)); }
+    public static void setDirectory(String path){ Log.setDirectory(new File(path)); }
 
     /**
      * To get the current log prefix string
@@ -78,6 +85,11 @@ public class Log {
      * @param o The object to print
      */
     public static void print(Object o){
+        if(!init) {
+            new Exception("No log directory has been chosen, JLL is not able to log").printStackTrace();
+            return;
+        }
+
         setPrint();
         System.out.println(getPrefix() + o);
     }
