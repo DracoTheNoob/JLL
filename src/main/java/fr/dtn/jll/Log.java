@@ -32,7 +32,7 @@ public class Log {
     public static void setDirectory(File directory){
         Log.directory = directory;
         init = true;
-        Log.print("Directory changed to : '" + directory.getPath() + "'");
+        Log.info("Directory changed to : '" + directory.getPath() + "'");
     }
 
     public static void setDirectory(String path){ Log.setDirectory(new File(path)); }
@@ -84,13 +84,31 @@ public class Log {
      * To print a message in both console and log file
      * @param o The object to print
      */
-    public static void print(Object o){
+    static void print(String type, PrintStream stream, Object o){
         if(!init) {
             new Exception("No log directory has been chosen, JLL is not able to log").printStackTrace();
             return;
         }
 
         setPrint();
-        System.out.println(getPrefix() + o);
+        stream.println('[' + type + ']' + getPrefix() + o);
     }
+
+    /**
+     * To print an information message in both console and log file
+     * @param o The object to print
+     */
+    public static void info(Object o){ print("?", System.out, o); }
+
+    /**
+     * To print a warn message in both console and log file
+     * @param o The object to print
+     */
+    public static void warn(Object o){ print("#", System.out, o); }
+
+    /**
+     * To print an error message in both console and log file
+     * @param o The object to print
+     */
+    public static void error(Object o){ print("!", System.err, o); }
 }
