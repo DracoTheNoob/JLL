@@ -13,5 +13,15 @@ Log.setDirectory("path");
 ## Print objects ##
 To print an object to the console and log file, use this :
 ```java
-Log.print(object);
+Log.info(object);
+```
+
+If you want to print a warn, use :
+```java
+Log.warn(object);
+```
+
+And if your message is an error, use :
+```java
+Log.error(object);
 ```
