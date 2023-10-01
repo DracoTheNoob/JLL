@@ -45,8 +45,8 @@ public class Log {
         LocalDateTime time = LocalDateTime.now();
 
         String thread = Thread.currentThread().getName();
-        String caller = new Exception().getStackTrace()[2].getClassName();
-        String method = Thread.currentThread().getStackTrace()[3].getMethodName();
+        String caller = new Exception().getStackTrace()[3].getClassName();
+        String method = Thread.currentThread().getStackTrace()[4].getMethodName();
 
         return "[" + time.getHour() + ":" +
                 time.getMinute() + ":" +
